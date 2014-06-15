@@ -1,5 +1,19 @@
 # Reproducible Research: Peer Assessment 1
 
+```{r}
+## File Location
+
+fileurl<- "http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+
+## Download file to a temporary location, read in dataframe, and delete tempfile
+
+temp<-tempfile()
+download.file(fileurl, temp)
+filename<-unzip(temp, list=TRUE)[[1]]
+data<-read.csv(unzip(temp,filename), na.strings = "NA")
+unlink(temp)
+unlink(filename)
+```
 
 ## Loading and preprocessing the data
 
