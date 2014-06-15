@@ -114,7 +114,7 @@ print(xt, type = "html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sat Jun 14 20:54:33 2014 -->
+<!-- Sat Jun 14 21:09:53 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Min.   :  0.0   </TD> <TD> Min.   :2012-10-01   </TD> <TD> Min.   :   0   </TD> </TR>
@@ -129,7 +129,7 @@ print(xt, type = "html")
 
 ## What is mean total number of steps taken per day?
 
-We will use the ddply() function from the plyr package to summarise the data and make a dtotalDF dataframe.
+We will use the ddply() function from the plyr package to summarise the data and make a dtotalDF dataframe. 
 
 
 ```r
@@ -309,7 +309,7 @@ Lastly, ggplot will be used, using facet_grid to trellis based on weekend or wee
 
 ```r
 imputDF$weektime[weekdays(imputDF$date) %in% c("Saturday", "Sunday")] <- "weekend"
-imputDF$weektime[!weekdays(imputDF$date) %in% c("Saturday", "Sunday")] <- "weekday"
+imputDF$weektime[!(weekdays(imputDF$date) %in% c("Saturday", "Sunday"))] <- "weekday"
 
 weektimeDF <- ddply(
      imputDF, 
@@ -317,6 +317,34 @@ weektimeDF <- ddply(
      summarize, 
      means = mean(steps, na.rm = TRUE))
 
+head(weektimeDF)
+```
+
+```
+##   weektime interval   means
+## 1  weekday        0 2.25115
+## 2  weekday        5 0.44528
+## 3  weekday       10 0.17317
+## 4  weekday       15 0.19790
+## 5  weekday       20 0.09895
+## 6  weekday       25 1.59036
+```
+
+```r
+tail(weektimeDF)
+```
+
+```
+##     weektime interval   means
+## 571  weekend     2330  1.3880
+## 572  weekend     2335 11.5873
+## 573  weekend     2340  6.2877
+## 574  weekend     2345  1.7052
+## 575  weekend     2350  0.0283
+## 576  weekend     2355  0.1344
+```
+
+```r
 ggplot(weektimeDF, aes(interval, means)) +
      geom_line() +
      facet_grid(weektime~.) +

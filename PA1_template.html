@@ -292,7 +292,7 @@ print(xt, type = &quot;html&quot;)
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
 
-<!-- Sat Jun 14 20:54:33 2014 -->
+<!-- Sat Jun 14 21:09:53 2014 -->
 
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
@@ -307,7 +307,7 @@ print(xt, type = &quot;html&quot;)
 
 <h2>What is mean total number of steps taken per day?</h2>
 
-<p>We will use the ddply() function from the plyr package to summarise the data and make a dtotalDF dataframe.</p>
+<p>We will use the ddply() function from the plyr package to summarise the data and make a dtotalDF dataframe. </p>
 
 <pre><code class="r">dtotalDF &lt;- ddply(
      data, 
@@ -462,7 +462,7 @@ The median number of steps taken each day is <strong>10766</strong>   </p>
 <p>Lastly, ggplot will be used, using facet_grid to trellis based on weekend or weekday.</p>
 
 <pre><code class="r">imputDF$weektime[weekdays(imputDF$date) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;)] &lt;- &quot;weekend&quot;
-imputDF$weektime[!weekdays(imputDF$date) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;)] &lt;- &quot;weekday&quot;
+imputDF$weektime[!(weekdays(imputDF$date) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;))] &lt;- &quot;weekday&quot;
 
 weektimeDF &lt;- ddply(
      imputDF, 
@@ -470,7 +470,31 @@ weektimeDF &lt;- ddply(
      summarize, 
      means = mean(steps, na.rm = TRUE))
 
-ggplot(weektimeDF, aes(interval, means)) +
+head(weektimeDF)
+</code></pre>
+
+<pre><code>##   weektime interval   means
+## 1  weekday        0 2.25115
+## 2  weekday        5 0.44528
+## 3  weekday       10 0.17317
+## 4  weekday       15 0.19790
+## 5  weekday       20 0.09895
+## 6  weekday       25 1.59036
+</code></pre>
+
+<pre><code class="r">tail(weektimeDF)
+</code></pre>
+
+<pre><code>##     weektime interval   means
+## 571  weekend     2330  1.3880
+## 572  weekend     2335 11.5873
+## 573  weekend     2340  6.2877
+## 574  weekend     2345  1.7052
+## 575  weekend     2350  0.0283
+## 576  weekend     2355  0.1344
+</code></pre>
+
+<pre><code class="r">ggplot(weektimeDF, aes(interval, means)) +
      geom_line() +
      facet_grid(weektime~.) +
      geom_line() +

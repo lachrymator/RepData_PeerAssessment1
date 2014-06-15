@@ -79,7 +79,7 @@ print(xt, type = "html")
 
 ## What is mean total number of steps taken per day?
 
-We will use the ddply() function from the plyr package to summarise the data and make a dtotalDF dataframe.
+We will use the ddply() function from the plyr package to summarise the data and make a dtotalDF dataframe. 
 
 ```{r}
 
@@ -214,13 +214,16 @@ Lastly, ggplot will be used, using facet_grid to trellis based on weekend or wee
 ```{r}
 
 imputDF$weektime[weekdays(imputDF$date) %in% c("Saturday", "Sunday")] <- "weekend"
-imputDF$weektime[!weekdays(imputDF$date) %in% c("Saturday", "Sunday")] <- "weekday"
+imputDF$weektime[!(weekdays(imputDF$date) %in% c("Saturday", "Sunday"))] <- "weekday"
 
 weektimeDF <- ddply(
      imputDF, 
      c("weektime", "interval"), 
      summarize, 
      means = mean(steps, na.rm = TRUE))
+
+head(weektimeDF)
+tail(weektimeDF)
 
 ggplot(weektimeDF, aes(interval, means)) +
      geom_line() +
