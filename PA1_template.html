@@ -292,7 +292,7 @@ print(xt, type = &quot;html&quot;)
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
 
-<!-- Sat Jun 14 20:30:54 2014 -->
+<!-- Sat Jun 14 20:54:33 2014 -->
 
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
@@ -342,7 +342,9 @@ The median number of steps taken each day is <strong>10395</strong>   </p>
 <h2>What is the average daily activity pattern?</h2>
 
 <p>For this part we will use a similar method to summarize the data using the ddply
-function. Except, we will summarize by interval as the identifier this time.    </p>
+function.      </p>
+
+<p>This time, we will summarize by interval as the identifier.</p>
 
 <pre><code class="r">intervalsDF &lt;- ddply(
      data, 
@@ -457,7 +459,7 @@ The median number of steps taken each day is <strong>10766</strong>   </p>
 
 <p>Then, we will use ddply() splitting on weekday and interval, to obtain means at each time interval for weekend or weekday.  </p>
 
-<p>Lastly, ggplot will be used, using facet_wrap to trellis based on weekend or weekday.</p>
+<p>Lastly, ggplot will be used, using facet_grid to trellis based on weekend or weekday.</p>
 
 <pre><code class="r">imputDF$weektime[weekdays(imputDF$date) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;)] &lt;- &quot;weekend&quot;
 imputDF$weektime[!weekdays(imputDF$date) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;)] &lt;- &quot;weekday&quot;

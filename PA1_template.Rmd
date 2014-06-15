@@ -106,7 +106,9 @@ The median number of steps taken each day is __`r median`__
 ## What is the average daily activity pattern?
 
 For this part we will use a similar method to summarize the data using the ddply
-function. Except, we will summarize by interval as the identifier this time.    
+function.      
+
+This time, we will summarize by interval as the identifier.
      
 
 
@@ -206,10 +208,11 @@ For this solution, we need to use the weekdays function. We will assign everythi
 
 Then, we will use ddply() splitting on weekday and interval, to obtain means at each time interval for weekend or weekday.  
 
-Lastly, ggplot will be used, using facet_wrap to trellis based on weekend or weekday.
+Lastly, ggplot will be used, using facet_grid to trellis based on weekend or weekday.
 
 
 ```{r}
+
 imputDF$weektime[weekdays(imputDF$date) %in% c("Saturday", "Sunday")] <- "weekend"
 imputDF$weektime[!weekdays(imputDF$date) %in% c("Saturday", "Sunday")] <- "weekday"
 
@@ -225,4 +228,5 @@ ggplot(weektimeDF, aes(interval, means)) +
      geom_line() +
      xlab("5-Minute Interval") +
      ylab("Mean steps taken")
-     
+
+```
