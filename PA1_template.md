@@ -114,7 +114,7 @@ print(xt, type = "html")
 ```
 
 <!-- html table generated in R 3.1.0 by xtable 1.7-3 package -->
-<!-- Sat Jun 14 20:23:03 2014 -->
+<!-- Sat Jun 14 20:30:54 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Min.   :  0.0   </TD> <TD> Min.   :2012-10-01   </TD> <TD> Min.   :   0   </TD> </TR>
